@@ -11,13 +11,14 @@ cd extra_data
 cd hand_module
 
 echo "Downloading other data"
-wget https://dl.fbaipublicfiles.com/eft/fairmocap_data/hand_module/SMPLX_HAND_INFO.pkl
-wget https://dl.fbaipublicfiles.com/eft/fairmocap_data/hand_module/mean_mano_params.pkl
+wget https://dl.fbaipublicfiles.com/eft/fairmocap_data/hand_module/SMPLX_HAND_INFO.pkl -O SMPLX_HAND_INFO.pkl
+wget https://dl.fbaipublicfiles.com/eft/fairmocap_data/hand_module/mean_mano_params.pkl -O mean_mano_params.pkl
 
 echo "Downloading pretrained hand model"
 [ -d pretrained_weights ] || mkdir pretrained_weights
 cd pretrained_weights
-wget https://dl.fbaipublicfiles.com/eft/fairmocap_data/hand_module/checkpoints_best/pose_shape_best.pth
+
+wget https://dl.fbaipublicfiles.com/eft/fairmocap_data/hand_module/checkpoints_best/pose_shape_best.pth -O pose_shape_best.pth
 
 #Go to root directory
 cd ../../../        

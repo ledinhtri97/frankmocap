@@ -14,6 +14,8 @@ if [ ! -d hand_object_detector ]; then
 fi
 # compile
 cd hand_object_detector/lib
+# go to the commit that is compatible with the current version of detectron2
+git reset --hard 27d9577c8e60b9cae3b8eefc0d23262af5e39bfd
 python setup.py build develop
 cd ../../
 
