@@ -52,6 +52,8 @@ def run_hand_mocap(args, bbox_detector, hand_mocap, visualizer):
 
         elif input_type == 'video':      
             _, img_original_bgr = input_data.read()
+            if img_original_bgr is not None:
+                img_original_bgr = cv2.resize(img_original_bgr, (640, 480))
             if video_frame < cur_frame:
                 video_frame += 1
                 continue

@@ -9,6 +9,7 @@ import numpy as np
 import cv2
 import pdb
 from .image_utils import draw_raw_bbox, draw_hand_bbox, draw_body_bbox, draw_arm_pose
+import traceback
 
 # To use screen_free visualizer. Either OpenDR or Pytorch3D should be installed.
 g_valid_visualize = False
@@ -21,7 +22,7 @@ try:
     from .p3d_renderer import Pytorch3dRenderer
     g_valid_visualize = True
 except ImportError:
-    print("Cannot import Pytorch3D Renderer")
+    print("Cannot import Pytorch3D Renderer", traceback.format_exc())
 assert g_valid_visualize, "You should import either OpenDR or Pytorch3D"
 
 class Visualizer(object):

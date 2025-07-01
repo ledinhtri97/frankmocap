@@ -20,3 +20,4 @@ smplx
 scikit-learn
 opendr
 chumpy
+torchgeometry

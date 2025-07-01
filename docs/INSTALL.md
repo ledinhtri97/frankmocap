@@ -11,7 +11,7 @@
   conda activate venv_frankmocap
 
   # Install basic dependencies
-  sudo apt-get install libglu1-mesa libxi-dev libxmu-dev libglu1-mesa-dev freeglut3-dev libosmesa6-dev
+  sudo apt-get install libglu1-mesa libxi-dev libxmu-dev libglu1-mesa-dev freeglut3-dev libosmesa6-dev wget git
 
   # Install ffmpeg
   sudo apt-get install ffmpeg 
@@ -24,6 +24,7 @@
   conda install -c pytorch pytorch==1.6.0 torchvision cudatoolkit=10.1
 
   # Install other required libraries
+  python -m pip install --upgrade pip
   pip install -r docs/requirements.txt
   ```
 
@@ -33,6 +34,11 @@
   ```
     python -m pip install detectron2 -f \
     https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.6/index.html
+  ```
+
+  ```
+  python -m pip install detectron2==0.4 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.8/index.html
   ```
   - If it doesn't work, follow the instruction of [Detectron2](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md)
   
@@ -111,6 +117,7 @@
     - You may try the following (pytorch 1.6.0, on Linux and Mac).
         ```
         pip install pytorch3d
+        pip install "git+https://github.com/facebookresearch/pytorch3d.git"
         ```
     - If it doesn't work, follow the instruction of [Pytorch3D](https://github.com/facebookresearch/pytorch3d/blob/master/INSTALL.md)
 
