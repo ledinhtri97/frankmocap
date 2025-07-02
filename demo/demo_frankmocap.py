@@ -113,10 +113,12 @@ def run_frank_mocap(args, bbox_detector, body_mocap, hand_mocap, visualizer):
 
     cur_frame = args.start_frame
     video_frame = 0
+    list_time = []
+    
     while True:
         # load data
         load_bbox = False
-
+        
         if input_type =='image_dir':
             if cur_frame < len(input_data):
                 image_path = input_data[cur_frame]
@@ -182,6 +184,8 @@ def run_frank_mocap(args, bbox_detector, body_mocap, hand_mocap, visualizer):
         if not load_bbox:
             body_bbox_list, hand_bbox_list = list(), list()
         
+        start_time = demo_utils.get_time()
+        
         # regression (includes integration)
         body_bbox_list, hand_bbox_list, pred_output_list = run_regress(
             args, img_original_bgr, 
@@ -220,8 +224,13 @@ def run_frank_mocap(args, bbox_detector, body_mocap, hand_mocap, visualizer):
             demo_utils.save_pred_to_pkl(
                 args, demo_type, image_path, body_bbox_list, hand_bbox_list, pred_output_list)
 
-        print(f"Processed : {image_path}")
+        duration_process = demo_utils.get_time() - start_time
+        list_time.append(duration_process)
+        print(f"Processed : {image_path}. time: {duration_process:.3f} sec")
 
+    fps_process = len(list_time) / sum(list_time)
+    print(f"Total frames: {len(list_time)}, FPS: {fps_process:.2f}")
+    
     # save images as a video
     if not args.no_video_out and input_type in ['video', 'webcam']:
         demo_utils.gen_video_out(args.out_dir, args.seq_name)

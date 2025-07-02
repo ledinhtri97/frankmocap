@@ -9,6 +9,10 @@ import numpy as np
 import json
 import subprocess as sp
 import glob
+import time
+
+def get_time():
+    return time.time()
 
 def setup_render_out(out_dir):
     if out_dir is not None:
