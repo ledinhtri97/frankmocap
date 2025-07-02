@@ -328,7 +328,7 @@ def gen_video_out(out_dir, seq_name):
     
     # Define the codec and create VideoWriter object
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # or use 'XVID'
-    out = cv2.VideoWriter(out_path, fourcc, fps, (width, height))
+    out = cv2.VideoWriter(out_path, fourcc, 15, (width, height))
     for image in images:
         frame = cv2.imread(image)
         out.write(frame)  # Write the frame to the video
