@@ -4,9 +4,9 @@ cd /workspace/frankmocap
 
 apt-get update
 
-apt-get install libglu1-mesa libxi-dev libxmu-dev libglu1-mesa-dev freeglut3-dev libosmesa6-dev wget git
+apt-get install -y libglu1-mesa libxi-dev libxmu-dev libglu1-mesa-dev freeglut3-dev libosmesa6-dev wget git
 
-apt-get install ffmpeg 
+apt-get install -y ffmpeg 
 
 python -m pip install --upgrade pip
 
