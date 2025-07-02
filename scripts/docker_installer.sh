@@ -19,3 +19,6 @@ cd /workspace/frankmocap/detectors/pytorch3d
 
 pip install -e .
 
+cd /workspace/frankmocap/detectors/hand_object_detector/lib
+
+python setup.py build develop

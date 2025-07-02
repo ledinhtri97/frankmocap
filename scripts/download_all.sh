@@ -32,3 +32,8 @@ mkdir -p extra_data/smpl
 cd extra_data/smpl
 wget https://github.com/githubcrj/simplify/raw/refs/heads/master/code/models/basicModel_neutral_lbs_10_207_0_v1.0.0.pkl -O basicModel_neutral_lbs_10_207_0_v1.0.0.pkl
 wget https://huggingface.co/camenduru/SMPLer-X/resolve/main/SMPLX_NEUTRAL.pkl -O SMPLX_NEUTRAL.pkl
+cd ../..
+
+mkdir data/
+echo ""
+echo ">>  Please push your video into the data folder."
