@@ -8,7 +8,7 @@ import mocap_utils.general_utils as gnu
 import numpy as np
 import json
 import subprocess as sp
-
+import glob
 
 def setup_render_out(out_dir):
     if out_dir is not None:
@@ -318,3 +318,20 @@ def gen_video_out(out_dir, seq_name):
     # print(ffmpeg_cmd.split())
     # sp.run(ffmpeg_cmd.split())
     # sp.Popen(ffmpeg_cmd.split(), stdout=sp.PIPE, stderr=sp.PIPE)
+    
+    images = sorted(glob.glob(os.path.join(in_dir, '*.jpg')))
+    if not images:
+        raise ValueError("No images found in the specified directory.")
+    # Read the first image to get the size
+    frame = cv2.imread(images[0])
+    height, width, layers = frame.shape
+    
+    # Define the codec and create VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # or use 'XVID'
+    out = cv2.VideoWriter(video_path, fourcc, fps, (width, height))
+    for image in images:
+        frame = cv2.imread(image)
+        out.write(frame)  # Write the frame to the video
+    out.release()  # Release the VideoWriter object
+    print(f"Video saved at {video_path}")
+    

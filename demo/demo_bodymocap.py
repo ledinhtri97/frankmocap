@@ -57,6 +57,15 @@ def run_body_mocap(args, body_bbox_detector, body_mocap, visualizer):
             if video_frame < cur_frame:
                 video_frame += 1
                 continue
+            if args.skip_frame > 0:
+                # skip frames
+                # print(f"Skip {args.skip_frame} frames")
+                for _ in range(args.skip_frame):
+                    _, img_original_bgr = input_data.read()
+                    video_frame += 1
+                    # print(f"Skip frame {video_frame}")
+                    if img_original_bgr is None:
+                        break
             # save the obtained video frames
             image_path = osp.join(args.out_dir, "frames", f"{cur_frame:05d}.jpg")
             if img_original_bgr is not None:

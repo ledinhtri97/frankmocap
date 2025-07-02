@@ -52,14 +52,22 @@ def run_hand_mocap(args, bbox_detector, hand_mocap, visualizer):
 
         elif input_type == 'video':      
             _, img_original_bgr = input_data.read()
-            if img_original_bgr is not None:
-                img_original_bgr = cv2.resize(img_original_bgr, (640, 480))
             if video_frame < cur_frame:
                 video_frame += 1
                 continue
+            if args.skip_frame > 0:
+                # skip frames
+                # print(f"Skip {args.skip_frame} frames")
+                for _ in range(args.skip_frame):
+                    _, img_original_bgr = input_data.read()
+                    video_frame += 1
+                    # print(f"Skip frame {video_frame}")
+                    if img_original_bgr is None:
+                        break
             # save the obtained video frames
             image_path = osp.join(args.out_dir, "frames", f"{cur_frame:05d}.jpg")
             if img_original_bgr is not None:
+                img_original_bgr = cv2.resize(img_original_bgr, (640, 480))
                 video_frame += 1
                 if args.save_frame:
                     gnu.make_subdir(image_path)
@@ -94,6 +102,7 @@ def run_hand_mocap(args, bbox_detector, hand_mocap, visualizer):
             # hand already cropped, thererore, no need for detection
             img_h, img_w = img_original_bgr.shape[:2]
             body_pose_list = None
+            body_bbox_list = None
             raw_hand_bboxes = None
             hand_bbox_list = [ dict(right_hand = np.array([0, 0, img_w, img_h])) ]
         else:            
@@ -107,15 +116,15 @@ def run_hand_mocap(args, bbox_detector, hand_mocap, visualizer):
         if args.save_bbox_output:
             demo_utils.save_info_to_json(args, image_path, body_bbox_list, hand_bbox_list)
 
-        if len(hand_bbox_list) < 1:
-            print(f"No hand deteced: {image_path}")
-            continue
+        # if len(hand_bbox_list) < 1:
+        #     print(f"No hand deteced: {image_path}")
+        #     continue
     
         # Hand Pose Regression
         pred_output_list = hand_mocap.regress(
                 img_original_bgr, hand_bbox_list, add_margin=True)
-        assert len(hand_bbox_list) == len(body_bbox_list)
-        assert len(body_bbox_list) == len(pred_output_list)
+        # assert len(hand_bbox_list) == len(body_bbox_list)
+        # assert len(body_bbox_list) == len(pred_output_list)
 
         # extract mesh for rendering (vertices in image space and faces) from pred_output_list
         pred_mesh_list = demo_utils.extract_mesh_from_output(pred_output_list)

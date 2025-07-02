@@ -19,6 +19,7 @@ class DemoOptions():
         parser.add_argument('--input_path', type=str, default=None, help="""Path of video, image, or a folder where image files exists""")
         parser.add_argument('--start_frame', type=int, default=0, help='given a sequence of frames, set the starting frame')
         parser.add_argument('--end_frame', type=int, default=float('inf'), help='given a sequence of frames, set the last frame')
+        parser.add_argument('--skip_frame', type=int, default=0, help='Interval of frames to skip. For example, if set to 2, every second frame will be processed.')
         parser.add_argument('--pkl_dir', type=str, help='Path of storing pkl files that store the predicted results')
         parser.add_argument('--openpose_dir', type=str, help='Directory of storing the prediction of openpose prediction')
 
