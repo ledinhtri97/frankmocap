@@ -313,8 +313,8 @@ def gen_video_out(out_dir, seq_name):
 
     in_dir = osp.abspath(osp.join(out_dir, "rendered"))
     out_path = osp.abspath(osp.join(out_dir, seq_name+'.mp4'))
-    ffmpeg_cmd = f'ffmpeg -y -f image2 -framerate 25 -pattern_type glob -i "{in_dir}/*.jpg"  -pix_fmt yuv420p -c:v libx264 -x264opts keyint=25:min-keyint=25:scenecut=-1 -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" {out_path}'
-    os.system(ffmpeg_cmd)
+    # ffmpeg_cmd = f'ffmpeg -y -f image2 -framerate 25 -pattern_type glob -i "{in_dir}/*.jpg"  -pix_fmt yuv420p -c:v libx264 -x264opts keyint=25:min-keyint=25:scenecut=-1 -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" {out_path}'
+    # os.system(ffmpeg_cmd)
     # print(ffmpeg_cmd.split())
     # sp.run(ffmpeg_cmd.split())
     # sp.Popen(ffmpeg_cmd.split(), stdout=sp.PIPE, stderr=sp.PIPE)
@@ -328,10 +328,10 @@ def gen_video_out(out_dir, seq_name):
     
     # Define the codec and create VideoWriter object
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # or use 'XVID'
-    out = cv2.VideoWriter(video_path, fourcc, fps, (width, height))
+    out = cv2.VideoWriter(out_path, fourcc, fps, (width, height))
     for image in images:
         frame = cv2.imread(image)
         out.write(frame)  # Write the frame to the video
     out.release()  # Release the VideoWriter object
-    print(f"Video saved at {video_path}")
+    print(f"Video saved at {out_path}")
     
